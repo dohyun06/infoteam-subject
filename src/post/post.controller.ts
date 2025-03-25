@@ -7,7 +7,7 @@ export class PostController {
   @Render('post')
   renderPage() {}
 
-  @Post('posts')
+  @Post('post')
   createPost(@Body() body: CreatePostDTO) {
     console.log(body);
     return body;

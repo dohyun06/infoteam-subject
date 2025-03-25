@@ -7,7 +7,7 @@ document.querySelector('form').addEventListener('submit', async (e) => {
   const title = document.querySelector('#title').value;
   const content = document.querySelector('#content').value;
 
-  const res = await fetch('/post/posts', {
+  const res = await fetch('/post/post', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

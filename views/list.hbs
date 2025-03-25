@@ -1,0 +1,169 @@
+<html lang='ko'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>게시물 목록</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background-color: #f4f4f4;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      /* + 추가 버튼 */
+      .add-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .add-button:hover {
+        background: #0056b3;
+      }
+
+      .post-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .post {
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease-in-out;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .post:hover {
+        transform: scale(1.02);
+      }
+
+      .post-content {
+        flex-grow: 1;
+      }
+
+      .post h2 {
+        font-size: 20px;
+        margin-bottom: 8px;
+      }
+
+      .post p {
+        font-size: 14px;
+        color: #555;
+        line-height: 1.4;
+      }
+
+      .post .date {
+        font-size: 12px;
+        color: #888;
+        margin-top: 5px;
+      }
+
+      /* 수정 & 삭제 버튼 */
+      .post-actions {
+        display: flex;
+        gap: 10px;
+      }
+
+      .btn {
+        padding: 8px 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background 0.2s;
+      }
+
+      .edit-btn {
+        background: #28a745;
+        color: white;
+      }
+
+      .edit-btn:hover {
+        background: #218838;
+      }
+
+      .delete-btn {
+        background: #dc3545;
+        color: white;
+      }
+
+      .delete-btn:hover {
+        background: #c82333;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class='container'>
+      <h1>게시물 목록</h1>
+      <button class='add-button'>➕ 추가</button>
+
+      <div class='post-list'>
+        <div class='post'>
+          <div class='post-content'>
+            <h2>첫 번째 게시물</h2>
+            <p>이것은 첫 번째 게시물의 내용 일부입니다...</p>
+            <p class='date'>작성일: 2025-03-25</p>
+          </div>
+          <div class='post-actions'>
+            <button class='btn edit-btn'>수정</button>
+            <button class='btn delete-btn'>삭제</button>
+          </div>
+        </div>
+        <div class='post'>
+          <div class='post-content'>
+            <h2>두 번째 게시물</h2>
+            <p>이것은 두 번째 게시물의 내용 일부입니다...</p>
+            <p class='date'>작성일: 2025-03-24</p>
+          </div>
+          <div class='post-actions'>
+            <button class='btn edit-btn'>수정</button>
+            <button class='btn delete-btn'>삭제</button>
+          </div>
+        </div>
+        <div class='post'>
+          <div class='post-content'>
+            <h2>세 번째 게시물</h2>
+            <p>이것은 세 번째 게시물의 내용 일부입니다...</p>
+            <p class='date'>작성일: 2025-03-23</p>
+          </div>
+          <div class='post-actions'>
+            <button class='btn edit-btn'>수정</button>
+            <button class='btn delete-btn'>삭제</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
