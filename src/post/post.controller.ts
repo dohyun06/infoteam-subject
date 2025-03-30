@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  UseFilters,
 } from '@nestjs/common';
 import { CreatePostDTO } from './dto/createPost.dto';
 import {
@@ -17,8 +18,12 @@ import {
   ApiParam,
 } from '@nestjs/swagger';
 import { PostService } from './post.service';
+import { HttpExceptionFilter } from 'filter/http-exception.filter';
+import { CreatePostParamDTO } from './dto/createPostParam.dto';
+import { GetPostDTO } from './dto/getPost.dto';
 
 @Controller('post')
+@UseFilters(new HttpExceptionFilter())
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
@@ -26,7 +31,7 @@ export class PostController {
   @ApiOperation({ summary: 'get posts' })
   @ApiOkResponse({ type: CreatePostDTO, description: 'Return posts' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
-  async sendPosts(): Promise<CreatePostDTO[]> {
+  async sendPosts(): Promise<GetPostDTO[]> {
     return await this.postService.getPosts();
   }
 
@@ -35,7 +40,7 @@ export class PostController {
   @ApiOkResponse({ type: CreatePostDTO, description: 'Return posts' })
   @ApiNotFoundResponse({ description: 'Not Found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
-  async sendPost(@Param('id') id: number): Promise<CreatePostDTO | null> {
+  async sendPost(@Param() { id }: CreatePostParamDTO): Promise<GetPostDTO> {
     return await this.postService.getPost(id);
   }
 

@@ -6,28 +6,26 @@ import {
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreatePostDTO } from './dto/createPost.dto';
 import { Prisma } from '@prisma/client';
+import { GetPostDTO } from './dto/getPost.dto';
 
 @Injectable()
 export class PostService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getPosts(): Promise<CreatePostDTO[]> {
+  async getPosts(): Promise<GetPostDTO[]> {
     return await this.prisma.post.findMany();
   }
 
-  async getPost(id: number): Promise<CreatePostDTO | null> {
+  async getPost(id: number): Promise<GetPostDTO> {
     return await this.prisma.post
       .findUnique({
         where: {
           id: id,
         },
       })
-      .catch((err) => {
-        if (err instanceof Prisma.PrismaClientKnownRequestError)
-          if (err.code === 'P2025')
-            throw new NotFoundException(`${id} is not found`);
-
-        throw new InternalServerErrorException();
+      .then((post) => {
+        if (!post) throw new NotFoundException(`${id} is not found`);
+        return post;
       });
   }
 
