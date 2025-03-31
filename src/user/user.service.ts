@@ -7,17 +7,22 @@ import {
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDTO } from './dto/createUser.dto';
 import { Prisma } from '@prisma/client';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
+
+  async getUsers(): Promise<CreateUserDTO[]> {
+    return await this.prisma.user.findMany();
+  }
 
   async registerUser(body: CreateUserDTO): Promise<CreateUserDTO> {
     return await this.prisma.user
       .create({
         data: {
           id: body.id,
-          password: body.password,
+          password: await bcrypt.hash(body.password, 10),
         },
       })
       .catch((err) => {
@@ -42,7 +47,7 @@ export class UserService {
     return await this.prisma.user
       .update({
         where: { id: id },
-        data: { password: password },
+        data: { password: await bcrypt.hash(password, 10) },
       })
       .catch((err) => {
         if (err instanceof Prisma.PrismaClientKnownRequestError)

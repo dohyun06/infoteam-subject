@@ -41,7 +41,7 @@ export class PostController {
   @ApiParam({
     name: 'id',
     description: 'ID of the post',
-    type: CreatePostParamDTO,
+    type: Number,
   })
   @ApiNotFoundResponse({ description: 'Not Found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
@@ -62,7 +62,7 @@ export class PostController {
   @ApiParam({
     name: 'id',
     description: 'ID of the post',
-    type: CreatePostParamDTO,
+    type: Number,
   })
   @ApiBody({ type: CreatePostDTO })
   @ApiNotFoundResponse({ description: 'Not Found' })
@@ -79,7 +79,7 @@ export class PostController {
   @ApiParam({
     name: 'id',
     description: 'id of the post',
-    type: CreatePostParamDTO,
+    type: Number,
   })
   @ApiNotFoundResponse({ description: 'Not Found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })

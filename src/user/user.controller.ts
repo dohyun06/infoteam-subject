@@ -27,6 +27,14 @@ import {
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @Get()
+  @ApiOperation({ summary: 'get users' })
+  @ApiOkResponse({ type: CreateUserDTO, description: 'Return users' })
+  @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
+  async getUsers(): Promise<CreateUserDTO[]> {
+    return await this.userService.getUsers();
+  }
+
   @Post()
   @ApiOperation({ summary: 'create a user' })
   @ApiBody({ type: CreateUserDTO })
@@ -38,7 +46,7 @@ export class UserController {
   @Get(':id')
   @ApiOperation({ summary: 'get a user' })
   @ApiOkResponse({ type: CreateUserDTO, description: 'Return a user' })
-  @ApiParam({ name: 'id', description: 'id of a user', type: GetUserDTO })
+  @ApiParam({ name: 'id', description: 'id of a user', type: String })
   @ApiNotFoundResponse({ description: 'Not Found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
   async getUser(@Param() { id }: GetUserDTO): Promise<CreateUserDTO> {
@@ -47,7 +55,7 @@ export class UserController {
 
   @Patch(':id/password')
   @ApiOperation({ summary: 'edit password of a user' })
-  @ApiParam({ name: 'id', description: 'id of a user', type: GetUserDTO })
+  @ApiParam({ name: 'id', description: 'id of a user', type: String })
   @ApiBody({ type: ChangePasswordDTO })
   @ApiNotFoundResponse({ description: 'Not Found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
@@ -60,7 +68,7 @@ export class UserController {
 
   @Delete(':id')
   @ApiOperation({ summary: 'edit password of a user' })
-  @ApiParam({ name: 'id', description: 'id of a user', type: GetUserDTO })
+  @ApiParam({ name: 'id', description: 'id of a user', type: String })
   @ApiNotFoundResponse({ description: 'Not Found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
   async deleteUser(@Param() { id }: GetUserDTO): Promise<CreateUserDTO> {
