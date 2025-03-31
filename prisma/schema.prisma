@@ -18,3 +18,8 @@ model Post {
   title   String
   content String
 }
+
+model User{
+  id     String @id  @default("")
+  password  String  @default("")
+}

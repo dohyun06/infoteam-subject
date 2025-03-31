@@ -38,6 +38,11 @@ export class PostController {
   @Get(':id')
   @ApiOperation({ summary: 'get a post' })
   @ApiOkResponse({ type: CreatePostDTO, description: 'Return posts' })
+  @ApiParam({
+    name: 'id',
+    description: 'ID of the post',
+    type: CreatePostParamDTO,
+  })
   @ApiNotFoundResponse({ description: 'Not Found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
   async sendPost(@Param() { id }: CreatePostParamDTO): Promise<GetPostDTO> {
@@ -54,12 +59,16 @@ export class PostController {
 
   @Put(':id')
   @ApiOperation({ summary: 'update a post' })
-  @ApiParam({ name: 'id', description: 'id of the post' })
+  @ApiParam({
+    name: 'id',
+    description: 'ID of the post',
+    type: CreatePostParamDTO,
+  })
   @ApiBody({ type: CreatePostDTO })
   @ApiNotFoundResponse({ description: 'Not Found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
   async updatePost(
-    @Param('id') id: number,
+    @Param() { id }: CreatePostParamDTO,
     @Body() body: CreatePostDTO,
   ): Promise<CreatePostDTO> {
     return await this.postService.updatePost(id, body);
@@ -67,10 +76,16 @@ export class PostController {
 
   @Delete(':id')
   @ApiOperation({ summary: 'delete a post' })
-  @ApiParam({ name: 'id', description: 'id of the post' })
+  @ApiParam({
+    name: 'id',
+    description: 'id of the post',
+    type: CreatePostParamDTO,
+  })
   @ApiNotFoundResponse({ description: 'Not Found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
-  async asyncdelData(@Param('id') id: number): Promise<CreatePostDTO> {
+  async asyncdelData(
+    @Param() { id }: CreatePostParamDTO,
+  ): Promise<CreatePostDTO> {
     return await this.postService.deletePost(id);
   }
 }
