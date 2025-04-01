@@ -7,6 +7,7 @@ import {
   Post,
   Put,
   UseFilters,
+  UseGuards,
 } from '@nestjs/common';
 import { CreatePostDTO } from './dto/createPost.dto';
 import {
@@ -21,6 +22,7 @@ import { PostService } from './post.service';
 import { HttpExceptionFilter } from 'filter/http-exception.filter';
 import { CreatePostParamDTO } from './dto/createPostParam.dto';
 import { GetPostDTO } from './dto/getPost.dto';
+import { JwtAuthGuard } from 'src/auth/strategy/jwtAuth.guard';
 
 @Controller('post')
 @UseFilters(new HttpExceptionFilter())
@@ -53,6 +55,7 @@ export class PostController {
   @ApiOperation({ summary: 'generate a post' })
   @ApiBody({ type: CreatePostDTO })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
+  @UseGuards(JwtAuthGuard)
   async createPost(@Body() body: CreatePostDTO): Promise<CreatePostDTO> {
     return await this.postService.makePost(body);
   }
@@ -67,6 +70,7 @@ export class PostController {
   @ApiBody({ type: CreatePostDTO })
   @ApiNotFoundResponse({ description: 'Not Found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
+  @UseGuards(JwtAuthGuard)
   async updatePost(
     @Param() { id }: CreatePostParamDTO,
     @Body() body: CreatePostDTO,
@@ -83,7 +87,8 @@ export class PostController {
   })
   @ApiNotFoundResponse({ description: 'Not Found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
-  async asyncdelData(
+  @UseGuards(JwtAuthGuard)
+  async deletePost(
     @Param() { id }: CreatePostParamDTO,
   ): Promise<CreatePostDTO> {
     return await this.postService.deletePost(id);
