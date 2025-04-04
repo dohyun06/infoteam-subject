@@ -1,12 +1,10 @@
 import {
-  ConflictException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDTO } from './dto/createUser.dto';
-import { Prisma } from '@prisma/client';
 import * as bcrypt from 'bcryptjs';
 
 @Injectable()
@@ -26,10 +24,6 @@ export class UserService {
         },
       })
       .catch((err) => {
-        if (err instanceof Prisma.PrismaClientKnownRequestError)
-          if (err.code === 'P2002')
-            throw new ConflictException('This ID exists');
-
         throw new InternalServerErrorException();
       });
   }
@@ -50,10 +44,6 @@ export class UserService {
         data: { password: await bcrypt.hash(password, 10) },
       })
       .catch((err) => {
-        if (err instanceof Prisma.PrismaClientKnownRequestError)
-          if (err.code === 'P2025')
-            throw new NotFoundException(`${id} is not found`);
-
         throw new InternalServerErrorException();
       });
   }
@@ -64,10 +54,6 @@ export class UserService {
         where: { id: id },
       })
       .catch((err) => {
-        if (err instanceof Prisma.PrismaClientKnownRequestError)
-          if (err.code === 'P2025')
-            throw new NotFoundException(`${id} is not found`);
-
         throw new InternalServerErrorException();
       });
   }
