@@ -20,6 +20,6 @@ model Post {
 }
 
 model User{
-  id     String @id  @default("")
+  id        String  @id  @default("")
   password  String  @default("")
 }

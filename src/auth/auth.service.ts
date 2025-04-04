@@ -74,4 +74,27 @@ export class AuthService {
       throw new UnauthorizedException();
     }
   }
+
+  async googleOAuth(googleUser: {
+    id: string;
+    password: string;
+    accessToken: string;
+    refreshToken: string;
+  }): Promise<TokenDTO> {
+    await this.prisma.user
+      .findUnique({ where: { id: googleUser.id } })
+      .then(async (user) => {
+        if (!user)
+          await this.userService.registerUser({
+            id: googleUser.id,
+            password: googleUser.password,
+          });
+        return user;
+      });
+
+    return {
+      access_token: googleUser.accessToken,
+      refresh_token: googleUser.refreshToken,
+    };
+  }
 }
