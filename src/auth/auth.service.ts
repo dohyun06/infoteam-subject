@@ -92,9 +92,24 @@ export class AuthService {
         return user;
       });
 
+    const accessToken = this.jwtService.sign(
+      { id: googleUser.id },
+      {
+        secret: this.configService.get<string>('JWT_SECRET'),
+        expiresIn: '15m',
+      },
+    );
+    const refreshToken = this.jwtService.sign(
+      { id: googleUser.id },
+      {
+        secret: this.configService.get<string>('JWT_SECRET'),
+        expiresIn: '1d',
+      },
+    );
+
     return {
-      access_token: googleUser.accessToken,
-      refresh_token: googleUser.refreshToken,
+      access_token: accessToken,
+      refresh_token: refreshToken,
     };
   }
 }

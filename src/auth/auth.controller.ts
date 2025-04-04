@@ -28,10 +28,12 @@ export class AuthController {
 
   @Get('google')
   @UseGuards(AuthGuard('google'))
+  @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
   async googleAuth(): Promise<void> {}
 
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
+  @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
   async googleAuthCallback(@Req() req: Request & { user }): Promise<TokenDTO> {
     return await this.authService.googleOAuth(req.user);
   }
