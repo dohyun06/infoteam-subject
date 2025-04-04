@@ -12,7 +12,6 @@ import { UserService } from './user.service';
 import { CreateUserDTO } from './dto/createUser.dto';
 import { GetUserDTO } from './dto/getUser.dto';
 import { ChangePasswordDTO } from './dto/changePassword.dto';
-import { HttpExceptionFilter } from 'filter/http-exception.filter';
 import {
   ApiBody,
   ApiInternalServerErrorResponse,
@@ -21,6 +20,7 @@ import {
   ApiOperation,
   ApiParam,
 } from '@nestjs/swagger';
+import { HttpExceptionFilter } from 'src/filter/http-exception.filter';
 
 @Controller('user')
 @UseFilters(new HttpExceptionFilter())

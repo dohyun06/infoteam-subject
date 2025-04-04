@@ -19,10 +19,10 @@ import {
   ApiParam,
 } from '@nestjs/swagger';
 import { PostService } from './post.service';
-import { HttpExceptionFilter } from 'filter/http-exception.filter';
 import { CreatePostParamDTO } from './dto/createPostParam.dto';
 import { GetPostDTO } from './dto/getPost.dto';
 import { JwtAuthGuard } from 'src/auth/strategy/jwtAuth.guard';
+import { HttpExceptionFilter } from 'src/filter/http-exception.filter';
 
 @Controller('post')
 @UseFilters(new HttpExceptionFilter())
