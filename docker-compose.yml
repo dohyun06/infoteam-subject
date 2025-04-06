@@ -2,21 +2,25 @@ version: '3'
 services:
   app:
     build: .
+    container_name: infoteam-subject
     ports:
       - '3000:3000'
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgresql://postgres:7rlaehgus7@localhost:5432/infoteam_subject
+      - DATABASE_URL=postgresql://postgres:7rlaehgus7@localhost:5432/infoteam_subject?schema=public
     networks:
       - app-network
 
   db:
     image: postgres:13
+    container_name: prisma-db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 7rlaehgus7
       POSTGRES_DB: infoteam_subject
+    ports:
+      - '5432:5432'
     networks:
       - app-network
 
