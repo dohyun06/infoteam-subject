@@ -1,7 +1,7 @@
 version: '3'
 services:
   db:
-    image: postgres:15
+    image: postgres:13
     container_name: prisma-db
     environment:
       POSTGRES_USER: ${DATABASE_USER}
